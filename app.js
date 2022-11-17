@@ -38,7 +38,7 @@ app.put("/", (req, res) => {
 });
 
 app.delete("/", (req, res) => {
-  console.log("want to delete" +req.body);
+  console.log("want to delete , IP: " +req.body.ip+" ID :" + req.body.id);
   Rooms = Rooms.filter((ele) => {
     if (ele.ip != req.body.ip || ele.id != req.body.id) {
       return ele;
