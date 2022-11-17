@@ -8,7 +8,7 @@ const port = 2534;
 app.post("/", (req, res) => {
   Rooms.forEach((element) => {
     if (element.id == req.body.id) {
-      element.playercount =Number( req.body.playercount);
+      element.playercount = Number(req.body.playercount);
       res.json({
         Respons: { faild: false, playercount: Number(req.body.playercount) },
       });
@@ -30,7 +30,7 @@ app.put("/", (req, res) => {
     ip: req.body.ip,
     port: req.body.port,
     id: roomid,
-    playercount: Number(req.body.playercount) ,
+    playercount: Number(req.body.playercount),
   });
   req.body.ip;
   res.json({ Respons: { faild: false, id: roomid } });
@@ -39,31 +39,29 @@ app.put("/", (req, res) => {
 
 app.delete("/", (req, res) => {
   Rooms.filter((ele) => {
-    if (ele.ip != req.body.ip) return ele;
+    if (ele.ip != req.body.ip || ele.id != req.body.id) return ele;
   });
   res.json({ Respons: { faild: false } });
 });
 
 app.get("/", (req, res) => {
-  let count =0;
-  let ip ="";
-  let port ="";
-  if(Rooms.length<=0){
-  res.send("no Availabe Rooms");
-  return;
+  let count = 0;
+  let ip = "";
+  let port = "";
+  if (Rooms.length <= 0) {
+    res.send("no Availabe Rooms");
+    return;
   }
-  Rooms.forEach(element => {
+  Rooms.forEach((element) => {
     console.log(element.ip);
-    if(element.playercount>=count)
-    {
-      count=element.playercount;
-      ip=element.ip;
-      port=element.port;  
+    if (element.playercount >= count) {
+      count = element.playercount;
+      ip = element.ip;
+      port = element.port;
       console.log(element);
     }
-    
   });
-  res.json({ Respons: { faild: false ,ip:ip,port:port} });
+  res.json({ Respons: { faild: false, ip: ip, port: port } });
 });
 
 app.listen(port, () => {
